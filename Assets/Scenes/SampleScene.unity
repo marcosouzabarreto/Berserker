@@ -27241,6 +27241,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d396161780ee1c4eadddd5785927e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1820839510 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7083546737486396279, guid: c9cdb066fbe9cda4abf660910268879b, type: 3}
+  m_PrefabInstance: {fileID: 7083546737951949821}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2127982951
 GameObject:
   m_ObjectHideFlags: 0
@@ -28180,6 +28185,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7083546737486396276, guid: c9cdb066fbe9cda4abf660910268879b, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1820839510}
     - target: {fileID: 7083546737486396283, guid: c9cdb066fbe9cda4abf660910268879b, type: 3}
       propertyPath: m_RootOrder
       value: 3
