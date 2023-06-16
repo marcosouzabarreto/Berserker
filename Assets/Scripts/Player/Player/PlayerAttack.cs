@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
     //Processo principal da terceira ação
     private void Update()
     {
-        if (CanAttack())
+        if (CanAttack() && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Attack();
             SetAttackOnCooldown();
