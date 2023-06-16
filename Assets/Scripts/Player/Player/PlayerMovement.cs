@@ -7,10 +7,13 @@ public class PlayerMovement : MonoBehaviour
     private float speed = 8f;
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
+    
 //Define propriedades de colisão
+    [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    
     //´Processos de controle do jogador
     void Update()
     {
@@ -21,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            animator.SetBool("IsJumping", true);
             rb.velocity = new Vector2(velocity.x, jumpingPower);
         }
 
@@ -28,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(velocity.x, velocity.y * 0.5f);
         }
+        // TODO FIX THIS
+        IsGrounded();
 
         Flip();
     }
@@ -39,7 +45,12 @@ public class PlayerMovement : MonoBehaviour
     //Checagem de chão
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        var isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        if (isGrounded)
+        {
+            animator.SetBool("IsJumping", false);
+        }
+        return isGrounded;
     }
     //Definição de orientação do sprite
     private void Flip()
