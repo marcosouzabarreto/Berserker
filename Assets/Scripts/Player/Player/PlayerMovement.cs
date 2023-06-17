@@ -7,10 +7,15 @@ public class PlayerMovement : MonoBehaviour
     private float speed = 8f;
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
-//Define propriedades de colisão
+    
+    public Animator anim;
+    
+    
+    //Define propriedades de colisão
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask enemyLayers;
     //´Processos de controle do jogador
     void Update()
     {
@@ -18,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
 
         var velocity = rb.velocity;
+
+        AnimateCharacter();
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -39,18 +46,23 @@ public class PlayerMovement : MonoBehaviour
     //Checagem de chão
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) || 
+               Physics2D.OverlapCircle(groundCheck.position, 0.2f, enemyLayers);
     }
     //Definição de orientação do sprite
     private void Flip()
     {
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
-            
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    void AnimateCharacter()
+    {
+        anim.SetBool("IsRunning", rb.velocity.x != 0);
     }
 }

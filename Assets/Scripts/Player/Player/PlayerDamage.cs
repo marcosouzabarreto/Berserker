@@ -20,11 +20,13 @@ public class PlayerDamage : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D other){
         if(other.gameObject.tag == "Enemy"){
             Damage(10);
+            other.gameObject.GetComponent<Enemy>().TakeDamage(12);
         }
-        anim.SetTrigger("Hit");
+        
     }
     //Tomando dano
     public void Damage(int dmg){
+        anim.SetTrigger("Hit");
         curHealth-=dmg;
         hb.SetHealth(curHealth);
     }
